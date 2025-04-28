@@ -10,91 +10,100 @@ const ContactForm = () => {
         fullname: string;
         email: string;
         subject: string;
-        message: string
+        message: string;
     }>({
         fullname: '',
         email: '',
         subject: '',
-        message: ''
+        message: '',
     });
+
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [focused, setFocused] = useState<string>('');
 
-    const [focused, setFocused] = useState('');
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            setIsSubmitting(true)
+            setIsSubmitting(true);
             // await apiContactUs(formState)
-            setIsSubmitting(false)
+            setIsSubmitting(false);
             toast.push(
-                <Notification
-                    title={'Success'}
-                    type={'success'}
-                >
+                <Notification title={'Success'} type={'success'}>
                     Successfully submitted
                 </Notification>,
-            )
+            );
             setFormState({
                 fullname: '',
                 email: '',
                 subject: '',
-                message: ''
-            })
-        } catch (err) {
-            setIsSubmitting(false)
+                message: '',
+            });
+        } catch (err: any) {
+            setIsSubmitting(false);
             toast.push(
                 <Notification
-                    title={err?.response?.data.message}
+                    title={err?.response?.data?.message || 'An error occurred'}
                     type={'danger'}
                 >
                     {err?.response?.data.message}
                 </Notification>,
-            )
+            );
         }
     };
 
-    const handleChange = (e) => {
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
         setFormState({
             ...formState,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
     };
 
     return (
-        <div className="bg-white py-12 px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Left Column - Contact Info */}
                     <div className="space-y-8">
                         <div>
-                            <h2 className="text-4xl font-bold text-gray-900 mb-4">Let's get in touch!</h2>
-                            <p className="text-gray-600 text-lg">
-                                Got questions about GoGetWell.AI? Our team is here to help. Contact us for quick and friendly support.
+                            <h2 className="text-4xl font-bold text-white mb-4">
+                                Let's get in touch!
+                            </h2>
+                            <p className="text-white text-lg">
+                                Got questions about GoGetWell.AI? Our team is
+                                here to help. Contact us for quick and friendly
+                                support.
                             </p>
                         </div>
 
                         <div className="space-y-6">
                             {/* Contact Details */}
                             <div className="flex items-center space-x-4">
-                                <div className="bg-purple-100 p-3 rounded-lg">
-                                    <BiPhone className="w-6 h-6 text-primary" />
+                                <div className="bg-blue-100 p-3 rounded-lg shadow-lg">
+                                    <BiPhone className="w-6 h-6 text-blue-600" />
                                 </div>
                                 <div>
-                                    <p className="text-gray-600">Phone</p>
-                                    <a href="tel:+919811396858" className="text-gray-900 hover:text-primary transition-colors">
+                                    <p className="text-white">Phone</p>
+                                    <a
+                                        href="tel:+919811396858"
+                                        className="text-blue-100 hover:text-white transition-colors"
+                                    >
                                         +91 9811396858
                                     </a>
                                 </div>
                             </div>
 
                             <div className="flex items-center space-x-4">
-                                <div className="bg-purple-100 p-3 rounded-lg">
-                                    <CgMail className="w-6 h-6 text-primary" />
+                                <div className="bg-blue-100 p-3 rounded-lg shadow-lg">
+                                    <CgMail className="w-6 h-6 text-blue-600" />
                                 </div>
                                 <div>
-                                    <p className="text-gray-600">Email</p>
-                                    <a href="mailto:hello@gogetwell.ai" className="text-gray-900 hover:text-primary transition-colors">
+                                    <p className="text-white">Email</p>
+                                    <a
+                                        href="mailto:hello@gogetwell.ai"
+                                        className="text-blue-100 hover:text-white transition-colors"
+                                    >
                                         hello@gogetwell.ai
                                     </a>
                                 </div>
@@ -103,24 +112,39 @@ const ContactForm = () => {
 
                         {/* Social Links */}
                         <div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-4">Connect With Us</h3>
+                            <h3 className="text-xl font-semibold text-white mb-4">
+                                Connect With Us
+                            </h3>
                             <div className="flex space-x-4">
-                                <Link to="https://x.com/gogetwellai" target='_blank' className="bg-purple-100 p-3 rounded-lg hover:bg-purple-200 transition-colors">
-                                    <BsTwitter className="w-6 h-6 text-primary" />
+                                <Link
+                                    to="https://x.com/gogetwellai"
+                                    target="_blank"
+                                    className="bg-blue-100 p-3 rounded-lg hover:bg-blue-200 transition-colors"
+                                >
+                                    <BsTwitter className="w-6 h-6 text-blue-600" />
                                 </Link>
-                                <Link to="https://www.linkedin.com/company/gogetwellai/" target='_blank' className="bg-purple-100 p-3 rounded-lg hover:bg-purple-200 transition-colors">
-                                    <BsLinkedin className="w-6 h-6 text-primary" />
+                                <Link
+                                    to="https://www.linkedin.com/company/gogetwellai/"
+                                    target="_blank"
+                                    className="bg-blue-100 p-3 rounded-lg hover:bg-blue-200 transition-colors"
+                                >
+                                    <BsLinkedin className="w-6 h-6 text-blue-600" />
                                 </Link>
                             </div>
                         </div>
                     </div>
 
                     {/* Right Column - Contact Form */}
-                    <div className="bg-gray-50 rounded-2xl shadow-lg p-4 sm:p-8">
+                    <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8">
                         <form onSubmit={handleSubmit} className="space-y-3">
                             <div className="relative">
-                                <div className={`absolute left-3 top-1/2 -translate-y-1/2 transition-all duration-300 ${focused === 'fullName' || formState.fullname ? 'text-primary' : 'text-gray-400'
-                                    }`}>
+                                <div
+                                    className={`absolute left-3 top-1/2 -translate-y-1/2 transition-all duration-300 ${
+                                        focused === 'fullName' || formState.fullname
+                                            ? 'text-blue-600'
+                                            : 'text-gray-400'
+                                    }`}
+                                >
                                     <BiUser className="w-5 h-5" />
                                 </div>
                                 <input
@@ -131,14 +155,19 @@ const ContactForm = () => {
                                     onChange={handleChange}
                                     onFocus={() => setFocused('fullname')}
                                     onBlur={() => setFocused('')}
-                                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
+                                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                     required
                                 />
                             </div>
 
                             <div className="relative">
-                                <div className={`absolute left-3 top-1/2 -translate-y-1/2 transition-all duration-300 ${focused === 'email' || formState.email ? 'text-primary' : 'text-gray-400'
-                                    }`}>
+                                <div
+                                    className={`absolute left-3 top-1/2 -translate-y-1/2 transition-all duration-300 ${
+                                        focused === 'email' || formState.email
+                                            ? 'text-blue-600'
+                                            : 'text-gray-400'
+                                    }`}
+                                >
                                     <CgMail className="w-5 h-5" />
                                 </div>
                                 <input
@@ -149,28 +178,10 @@ const ContactForm = () => {
                                     onChange={handleChange}
                                     onFocus={() => setFocused('email')}
                                     onBlur={() => setFocused('')}
-                                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
+                                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                     required
                                 />
                             </div>
-
-                            {/* <div className="relative">
-                                <div className={`absolute left-3 top-1/2 -translate-y-1/2 transition-all duration-300 ${focused === 'subject' || formState.subject ? 'text-primary' : 'text-gray-400'
-                                    }`}>
-                                    <BiMessageSquare className="w-5 h-5" />
-                                </div>
-                                <input
-                                    type="text"
-                                    name="subject"
-                                    placeholder="Subject"
-                                    value={formState.subject}
-                                    onChange={handleChange}
-                                    onFocus={() => setFocused('subject')}
-                                    onBlur={() => setFocused('')}
-                                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
-                                    required
-                                />
-                            </div> */}
 
                             <div className="relative">
                                 <textarea
@@ -181,7 +192,7 @@ const ContactForm = () => {
                                     onFocus={() => setFocused('message')}
                                     onBlur={() => setFocused('')}
                                     rows={4}
-                                    className="w-full p-4 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
+                                    className="w-full p-4 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                     required
                                 />
                             </div>
@@ -189,7 +200,7 @@ const ContactForm = () => {
                             <Button
                                 loading={isSubmitting}
                                 type="submit"
-                                className="w-full bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-transparent transition-colors duration-300 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg"
+                                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg"
                             >
                                 <span>Submit</span>
                                 <BiSend className="w-5 h-5" />

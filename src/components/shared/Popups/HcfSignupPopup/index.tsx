@@ -75,7 +75,8 @@ const HcfSignupPopup = ({
 
     const [email, setEmail] = useState('')
 
-    const handleEmailSignUp = async (e) => {
+    // Explicitly typing the event parameter
+    const handleEmailSignUp = async (e: React.FormEvent) => {  // Use React.FormEvent for form submission
         e.preventDefault()
         setLoading(true)
         try {
@@ -239,4 +240,4 @@ const HcfSignupPopup = ({
     )
 }
 
-export default HcfSignupPopup
+export default HcfSignupPopup;

@@ -1,6 +1,7 @@
 import { lazy } from 'react'
 import type { Routes } from '@/@types/routes'
-
+import sharedRoutes from './sharedRoutes';
+ 
 const authRoute: Routes = [
     {
         key: 'signIn',

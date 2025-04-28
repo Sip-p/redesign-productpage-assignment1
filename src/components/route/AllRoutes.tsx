@@ -8,7 +8,7 @@ import appConfig from '@/configs/app.config'
 import { useAuth } from '@/auth'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import type { LayoutType } from '@/@types/theme'
-
+import { lazy } from 'react'
 interface ViewsProps {
     pageContainerType?: 'default' | 'gutterless' | 'contained'
     layout?: LayoutType
@@ -24,10 +24,7 @@ const AllRoutes = (props: AllRoutesProps) => {
     return (
         <Routes>
             <Route path="/" element={<ProtectedRoute />}>
-                <Route
-                    path="/"
-                    element={<Navigate replace to={authenticatedEntryPath} />}
-                />
+                <Route path="/" element={<AppRoute routeKey="homePage" component={lazy(() => import('@/views/Home'))} />} />
                 {protectedRoutes.map((route, index) => (
                     <Route
                         key={route.key + index}
@@ -48,8 +45,7 @@ const AllRoutes = (props: AllRoutesProps) => {
                         }
                     />
                 ))}
-                <Route path="*" element={<Navigate replace to="/" />} />
-            </Route>
+<Route path="*" element={<Navigate replace to={window.location.pathname} />} />            </Route>
             <Route path="/" element={<PublicRoute />}>
                 {publicRoutes.map((route) => (
                     <Route

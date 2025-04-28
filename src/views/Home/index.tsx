@@ -5,13 +5,16 @@ import ContactForm from './components/ContactForm';
 import MainFooter from './components/MainFooter';
 import InfoSection from './components/InfoSection';
 import FeaturesGrid from './components/FeaturesGrid';
-
+import HeroSectionImage from './assets/hero-section-image.png';
 const Home: React.FC = () => {
-	const contactRef = useRef(null);
-	const aboutRef = useRef(null);
-	const FqRef = useRef(null);
-	const scrollToSection = (ref) => {
-		ref.current.scrollIntoView({ behavior: 'smooth' });
+	const contactRef = useRef<HTMLDivElement | null>(null);
+	const aboutRef = useRef<HTMLDivElement | null>(null);
+	const FqRef = useRef<HTMLDivElement | null>(null);
+
+	const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
+		if (ref.current) {
+			ref.current.scrollIntoView({ behavior: 'smooth' });
+		}
 	};
 
 	useEffect(() => {
@@ -35,7 +38,6 @@ const Home: React.FC = () => {
 			lastScrollTop = scrollTop;
 		};
 
-
 		// Add scroll event listener
 		window.addEventListener("scroll", handleScroll);
 
@@ -44,6 +46,7 @@ const Home: React.FC = () => {
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
+
 	return (
 		<>
 			<div>
@@ -79,3 +82,11 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+
+
+
+
+
+
+ 
